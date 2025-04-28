@@ -1,0 +1,130 @@
+[2025-04-26T04:00:36.960+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T04:00:36.119794+00:00 [queued]>
+[2025-04-26T04:00:36.977+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T04:00:36.119794+00:00 [queued]>
+[2025-04-26T04:00:36.978+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-04-26T04:00:36.996+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): submit_traffic_processor_spark_job> on 2025-04-26 04:00:36.119794+00:00
+[2025-04-26T04:00:37.005+0000] {standard_task_runner.py:60} INFO - Started process 433 to run task
+[2025-04-26T04:00:37.009+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'traffic_data_pipeline', 'submit_traffic_processor_spark_job', 'manual__2025-04-26T04:00:36.119794+00:00', '--job-id', '27', '--raw', '--subdir', 'DAGS_FOLDER/traffic_pipeline_dag.py', '--cfg-path', '/tmp/tmpwsa77ec2']
+[2025-04-26T04:00:37.012+0000] {standard_task_runner.py:88} INFO - Job 27: Subtask submit_traffic_processor_spark_job
+[2025-04-26T04:00:37.086+0000] {task_command.py:423} INFO - Running <TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T04:00:36.119794+00:00 [running]> on host df84b95b25c0
+[2025-04-26T04:00:37.206+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='traffic_data_pipeline' AIRFLOW_CTX_TASK_ID='submit_traffic_processor_spark_job' AIRFLOW_CTX_EXECUTION_DATE='2025-04-26T04:00:36.119794+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-26T04:00:36.119794+00:00'
+[2025-04-26T04:00:37.208+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-04-26T04:00:37.211+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n            echo "Setting PYTHONPATH..."\n            # Chỉ định đúng đường dẫn site-packages của user *** với Python 3.10\n            PYTHON_USER_SITE="/home/***/.local/lib/python3.10/site-packages"\n            # Export PYTHONPATH bao gồm đường dẫn này và giữ lại PYTHONPATH cũ nếu có\n            export PYTHONPATH="${PYTHON_USER_SITE}:${PYTHONPATH:-}"\n            echo "Using PYTHONPATH=$PYTHONPATH"\n\n            # Các export khác giữ nguyên (Airflow tự động truyền các biến môi trường từ docker-compose vào đây)\n            echo "Exporting other environment variables..."\n            export KAFKA_BROKERS_INTERNAL="$KAFKA_BROKERS_INTERNAL" && \\\n            export KAFKA_TOPIC="$KAFKA_TOPIC" && \\\n            export SCHEMA_REGISTRY_URL="$SCHEMA_REGISTRY_URL" && \\\n            export REDIS_HOST="$REDIS_HOST" && \\\n            export CLICKHOUSE_HOST="$CLICKHOUSE_HOST" && \\\n            export CLICKHOUSE_NATIVE_PORT="$CLICKHOUSE_NATIVE_PORT" && \\\n            export MINIO_ENDPOINT="$MINIO_ENDPOINT" && \\\n            export MINIO_ACCESS_KEY="$MINIO_ACCESS_KEY" && \\\n            export MINIO_SECRET_KEY="$MINIO_SECRET_KEY" && \\\n            export MINIO_BUCKET="$MINIO_BUCKET" && \\\n            # Xây dựng đường dẫn checkpoint đầy đủ\n            CHECKPOINT_LOCATION_VAR="s3a://${MINIO_BUCKET:-traffic-data}/checkpoints_***/traffic_processing_pipeline" && \\\n            export CHECKPOINT_LOCATION="$CHECKPOINT_LOCATION_VAR" && \\\n            export PYSPARK_PYTHON=/usr/bin/python3 && \\ # Đảm bảo dùng đúng python\n\n            echo "--- Running Spark Submit ---" && \\\n            spark-submit \\\n            --master local[*] \\\n            --deploy-mode client \\\n            --conf spark.sql.streaming.schemaInference=true \\\n            --conf spark.hadoop.fs.s3a.endpoint="$MINIO_ENDPOINT" \\\n            --conf spark.hadoop.fs.s3a.access.key="$MINIO_ACCESS_KEY" \\\n            --conf spark.hadoop.fs.s3a.secret.key="$MINIO_SECRET_KEY" \\\n            --conf spark.hadoop.fs.s3a.path.style.access=true \\\n            --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \\\n            --conf spark.sql.avro.schemaRegistryUrl="$SCHEMA_REGISTRY_URL" \\\n            # Không cần --packages vì JARs đã có trong image Airflow\n            /opt/spark/app/processor.py # Đường dẫn đến script Spark\n            ']
+[2025-04-26T04:00:37.227+0000] {subprocess.py:86} INFO - Output:
+[2025-04-26T04:00:37.229+0000] {subprocess.py:93} INFO - Setting PYTHONPATH...
+[2025-04-26T04:00:37.230+0000] {subprocess.py:93} INFO - Using PYTHONPATH=/home/***/.local/lib/python3.10/site-packages:
+[2025-04-26T04:00:37.231+0000] {subprocess.py:93} INFO - Exporting other environment variables...
+[2025-04-26T04:00:37.236+0000] {subprocess.py:93} INFO - /usr/bin/bash: line 24:  #: command not found
+[2025-04-26T04:00:37.237+0000] {subprocess.py:93} INFO - --- Running Spark Submit ---
+[2025-04-26T04:00:37.245+0000] {subprocess.py:93} INFO - /opt/spark/bin/load-spark-env.sh: line 68: ps: command not found
+[2025-04-26T04:00:37.573+0000] {subprocess.py:93} INFO - Error: Missing application resource.
+[2025-04-26T04:00:37.574+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.753+0000] {subprocess.py:93} INFO - Usage: spark-submit [options] <app jar | python file | R file> [app arguments]
+[2025-04-26T04:00:38.754+0000] {subprocess.py:93} INFO - Usage: spark-submit --kill [submission ID] --master [spark://...]
+[2025-04-26T04:00:38.755+0000] {subprocess.py:93} INFO - Usage: spark-submit --status [submission ID] --master [spark://...]
+[2025-04-26T04:00:38.755+0000] {subprocess.py:93} INFO - Usage: spark-submit run-example [options] example-class [example args]
+[2025-04-26T04:00:38.756+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.757+0000] {subprocess.py:93} INFO - Options:
+[2025-04-26T04:00:38.758+0000] {subprocess.py:93} INFO -   --master MASTER_URL         spark://host:port, mesos://host:port, yarn,
+[2025-04-26T04:00:38.759+0000] {subprocess.py:93} INFO -                               k8s://https://host:port, or local (Default: local[*]).
+[2025-04-26T04:00:38.759+0000] {subprocess.py:93} INFO -   --deploy-mode DEPLOY_MODE   Whether to launch the driver program locally ("client") or
+[2025-04-26T04:00:38.760+0000] {subprocess.py:93} INFO -                               on one of the worker machines inside the cluster ("cluster")
+[2025-04-26T04:00:38.761+0000] {subprocess.py:93} INFO -                               (Default: client).
+[2025-04-26T04:00:38.762+0000] {subprocess.py:93} INFO -   --class CLASS_NAME          Your application's main class (for Java / Scala apps).
+[2025-04-26T04:00:38.762+0000] {subprocess.py:93} INFO -   --name NAME                 A name of your application.
+[2025-04-26T04:00:38.763+0000] {subprocess.py:93} INFO -   --jars JARS                 Comma-separated list of jars to include on the driver
+[2025-04-26T04:00:38.763+0000] {subprocess.py:93} INFO -                               and executor classpaths.
+[2025-04-26T04:00:38.764+0000] {subprocess.py:93} INFO -   --packages                  Comma-separated list of maven coordinates of jars to include
+[2025-04-26T04:00:38.764+0000] {subprocess.py:93} INFO -                               on the driver and executor classpaths. Will search the local
+[2025-04-26T04:00:38.765+0000] {subprocess.py:93} INFO -                               maven repo, then maven central and any additional remote
+[2025-04-26T04:00:38.766+0000] {subprocess.py:93} INFO -                               repositories given by --repositories. The format for the
+[2025-04-26T04:00:38.766+0000] {subprocess.py:93} INFO -                               coordinates should be groupId:artifactId:version.
+[2025-04-26T04:00:38.767+0000] {subprocess.py:93} INFO -   --exclude-packages          Comma-separated list of groupId:artifactId, to exclude while
+[2025-04-26T04:00:38.767+0000] {subprocess.py:93} INFO -                               resolving the dependencies provided in --packages to avoid
+[2025-04-26T04:00:38.768+0000] {subprocess.py:93} INFO -                               dependency conflicts.
+[2025-04-26T04:00:38.768+0000] {subprocess.py:93} INFO -   --repositories              Comma-separated list of additional remote repositories to
+[2025-04-26T04:00:38.769+0000] {subprocess.py:93} INFO -                               search for the maven coordinates given with --packages.
+[2025-04-26T04:00:38.770+0000] {subprocess.py:93} INFO -   --py-files PY_FILES         Comma-separated list of .zip, .egg, or .py files to place
+[2025-04-26T04:00:38.770+0000] {subprocess.py:93} INFO -                               on the PYTHONPATH for Python apps.
+[2025-04-26T04:00:38.771+0000] {subprocess.py:93} INFO -   --files FILES               Comma-separated list of files to be placed in the working
+[2025-04-26T04:00:38.772+0000] {subprocess.py:93} INFO -                               directory of each executor. File paths of these files
+[2025-04-26T04:00:38.772+0000] {subprocess.py:93} INFO -                               in executors can be accessed via SparkFiles.get(fileName).
+[2025-04-26T04:00:38.773+0000] {subprocess.py:93} INFO -   --archives ARCHIVES         Comma-separated list of archives to be extracted into the
+[2025-04-26T04:00:38.773+0000] {subprocess.py:93} INFO -                               working directory of each executor.
+[2025-04-26T04:00:38.774+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.775+0000] {subprocess.py:93} INFO -   --conf, -c PROP=VALUE       Arbitrary Spark configuration property.
+[2025-04-26T04:00:38.775+0000] {subprocess.py:93} INFO -   --properties-file FILE      Path to a file from which to load extra properties. If not
+[2025-04-26T04:00:38.776+0000] {subprocess.py:93} INFO -                               specified, this will look for conf/spark-defaults.conf.
+[2025-04-26T04:00:38.777+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.777+0000] {subprocess.py:93} INFO -   --driver-memory MEM         Memory for driver (e.g. 1000M, 2G) (Default: 1024M).
+[2025-04-26T04:00:38.778+0000] {subprocess.py:93} INFO -   --driver-java-options       Extra Java options to pass to the driver.
+[2025-04-26T04:00:38.779+0000] {subprocess.py:93} INFO -   --driver-library-path       Extra library path entries to pass to the driver.
+[2025-04-26T04:00:38.780+0000] {subprocess.py:93} INFO -   --driver-class-path         Extra class path entries to pass to the driver. Note that
+[2025-04-26T04:00:38.780+0000] {subprocess.py:93} INFO -                               jars added with --jars are automatically included in the
+[2025-04-26T04:00:38.781+0000] {subprocess.py:93} INFO -                               classpath.
+[2025-04-26T04:00:38.782+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.782+0000] {subprocess.py:93} INFO -   --executor-memory MEM       Memory per executor (e.g. 1000M, 2G) (Default: 1G).
+[2025-04-26T04:00:38.783+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.784+0000] {subprocess.py:93} INFO -   --proxy-user NAME           User to impersonate when submitting the application.
+[2025-04-26T04:00:38.784+0000] {subprocess.py:93} INFO -                               This argument does not work with --principal / --keytab.
+[2025-04-26T04:00:38.785+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.786+0000] {subprocess.py:93} INFO -   --help, -h                  Show this help message and exit.
+[2025-04-26T04:00:38.786+0000] {subprocess.py:93} INFO -   --verbose, -v               Print additional debug output.
+[2025-04-26T04:00:38.787+0000] {subprocess.py:93} INFO -   --version,                  Print the version of current Spark.
+[2025-04-26T04:00:38.787+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.788+0000] {subprocess.py:93} INFO -  Cluster deploy mode only:
+[2025-04-26T04:00:38.789+0000] {subprocess.py:93} INFO -   --driver-cores NUM          Number of cores used by the driver, only in cluster mode
+[2025-04-26T04:00:38.790+0000] {subprocess.py:93} INFO -                               (Default: 1).
+[2025-04-26T04:00:38.790+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.791+0000] {subprocess.py:93} INFO -  Spark standalone or Mesos with cluster deploy mode only:
+[2025-04-26T04:00:38.791+0000] {subprocess.py:93} INFO -   --supervise                 If given, restarts the driver on failure.
+[2025-04-26T04:00:38.792+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.793+0000] {subprocess.py:93} INFO -  Spark standalone, Mesos or K8s with cluster deploy mode only:
+[2025-04-26T04:00:38.793+0000] {subprocess.py:93} INFO -   --kill SUBMISSION_ID        If given, kills the driver specified.
+[2025-04-26T04:00:38.794+0000] {subprocess.py:93} INFO -   --status SUBMISSION_ID      If given, requests the status of the driver specified.
+[2025-04-26T04:00:38.794+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.795+0000] {subprocess.py:93} INFO -  Spark standalone and Mesos only:
+[2025-04-26T04:00:38.795+0000] {subprocess.py:93} INFO -   --total-executor-cores NUM  Total cores for all executors.
+[2025-04-26T04:00:38.796+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.796+0000] {subprocess.py:93} INFO -  Spark standalone, YARN and Kubernetes only:
+[2025-04-26T04:00:38.796+0000] {subprocess.py:93} INFO -   --executor-cores NUM        Number of cores used by each executor. (Default: 1 in
+[2025-04-26T04:00:38.797+0000] {subprocess.py:93} INFO -                               YARN and K8S modes, or all available cores on the worker
+[2025-04-26T04:00:38.797+0000] {subprocess.py:93} INFO -                               in standalone mode).
+[2025-04-26T04:00:38.798+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.798+0000] {subprocess.py:93} INFO -  Spark on YARN and Kubernetes only:
+[2025-04-26T04:00:38.799+0000] {subprocess.py:93} INFO -   --num-executors NUM         Number of executors to launch (Default: 2).
+[2025-04-26T04:00:38.799+0000] {subprocess.py:93} INFO -                               If dynamic allocation is enabled, the initial number of
+[2025-04-26T04:00:38.800+0000] {subprocess.py:93} INFO -                               executors will be at least NUM.
+[2025-04-26T04:00:38.800+0000] {subprocess.py:93} INFO -   --principal PRINCIPAL       Principal to be used to login to KDC.
+[2025-04-26T04:00:38.801+0000] {subprocess.py:93} INFO -   --keytab KEYTAB             The full path to the file that contains the keytab for the
+[2025-04-26T04:00:38.802+0000] {subprocess.py:93} INFO -                               principal specified above.
+[2025-04-26T04:00:38.802+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.803+0000] {subprocess.py:93} INFO -  Spark on YARN only:
+[2025-04-26T04:00:38.804+0000] {subprocess.py:93} INFO -   --queue QUEUE_NAME          The YARN queue to submit to (Default: "default").
+[2025-04-26T04:00:38.804+0000] {subprocess.py:93} INFO - 
+[2025-04-26T04:00:38.805+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 1: import: command not found
+[2025-04-26T04:00:38.806+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 2: import: command not found
+[2025-04-26T04:00:38.807+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 3: import: command not found
+[2025-04-26T04:00:38.807+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 4: from: command not found
+[2025-04-26T04:00:38.808+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 5: import: command not found
+[2025-04-26T04:00:38.809+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 6: $'\r': command not found
+[2025-04-26T04:00:38.809+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 8: import: command not found
+[2025-04-26T04:00:38.810+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 9: from: command not found
+[2025-04-26T04:00:38.811+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 10: from: command not found
+[2025-04-26T04:00:38.811+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 11: from: command not found
+[2025-04-26T04:00:38.812+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 12: from: command not found
+[2025-04-26T04:00:38.812+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 13: $'\r': command not found
+[2025-04-26T04:00:38.813+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 18: $'\r': command not found
+[2025-04-26T04:00:38.814+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 19: syntax error near unexpected token `"--- PySpark Script Dependencies Imported ---"'
+[2025-04-26T04:00:38.815+0000] {subprocess.py:93} INFO - /opt/spark/app/processor.py: line 19: `print("--- PySpark Script Dependencies Imported ---")'
+[2025-04-26T04:00:38.815+0000] {subprocess.py:97} INFO - Command exited with return code 2
+[2025-04-26T04:00:38.831+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 2.
+[2025-04-26T04:00:38.834+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=traffic_data_pipeline, task_id=submit_traffic_processor_spark_job, execution_date=20250426T040036, start_date=20250426T040036, end_date=20250426T040038
+[2025-04-26T04:00:38.858+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 27 for task submit_traffic_processor_spark_job (Bash command failed. The command returned a non-zero exit code 2.; 433)
+[2025-04-26T04:00:38.867+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-04-26T04:00:38.894+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

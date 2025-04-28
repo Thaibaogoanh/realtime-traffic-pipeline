@@ -1,0 +1,2 @@
+# kafka-python # Không dùng nữa
+confluent-kafka[avro]>=2.0.0 # Bao gồm cả Avro và Schema Registry client

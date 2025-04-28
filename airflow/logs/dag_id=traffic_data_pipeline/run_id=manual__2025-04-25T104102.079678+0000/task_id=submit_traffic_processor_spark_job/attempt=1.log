@@ -1,0 +1,118 @@
+[2025-04-25T10:41:03.289+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T10:41:02.079678+00:00 [queued]>
+[2025-04-25T10:41:03.307+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T10:41:02.079678+00:00 [queued]>
+[2025-04-25T10:41:03.308+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-04-25T10:41:03.330+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): submit_traffic_processor_spark_job> on 2025-04-25 10:41:02.079678+00:00
+[2025-04-25T10:41:03.340+0000] {standard_task_runner.py:60} INFO - Started process 184 to run task
+[2025-04-25T10:41:03.351+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'traffic_data_pipeline', 'submit_traffic_processor_spark_job', 'manual__2025-04-25T10:41:02.079678+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/traffic_pipeline_dag.py', '--cfg-path', '/tmp/tmpz_qk9s9x']
+[2025-04-25T10:41:03.358+0000] {standard_task_runner.py:88} INFO - Job 4: Subtask submit_traffic_processor_spark_job
+[2025-04-25T10:41:03.530+0000] {task_command.py:423} INFO - Running <TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T10:41:02.079678+00:00 [running]> on host 1f4e090fb273
+[2025-04-25T10:41:03.994+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='traffic_data_pipeline' AIRFLOW_CTX_TASK_ID='submit_traffic_processor_spark_job' AIRFLOW_CTX_EXECUTION_DATE='2025-04-25T10:41:02.079678+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-25T10:41:02.079678+00:00'
+[2025-04-25T10:41:03.997+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-04-25T10:41:04.000+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n            export KAFKA_BROKERS_INTERNAL="kafk-1:9092,kafk-2:9092,kafk-3:9092" && \\\n            export KAFKA_TOPIC="raw_traffic_data" && \\\n            export SCHEMA_REGISTRY_URL="http://schema-registry:8081" && \\\n            export REDIS_HOST="redis" && \\\n            export CLICKHOUSE_HOST="clickhouse-server" && \\\n            export CLICKHOUSE_NATIVE_PORT="9000" && \\\n            export MINIO_ENDPOINT="http://minio:9000" && \\\n            export MINIO_ACCESS_KEY="minioadmin" && \\\n            export MINIO_SECRET_KEY="minioadmin" && \\\n            export MINIO_BUCKET="traffic-data" && \\\n            export CHECKPOINT_LOCATION="s3a://traffic-data/checkpoints_***" && \\\n            export PYSPARK_PYTHON=/usr/bin/python3 && \\\n            spark-submit \\\n            --master local[*] \\\n            --deploy-mode client \\\n            --conf spark.sql.streaming.schemaInference=true \\\n            --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000 \\\n            --conf spark.hadoop.fs.s3a.access.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.secret.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.path.style.access=true \\\n            --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \\\n            --conf spark.sql.avro.schemaRegistryUrl=http://schema-registry:8081 \\\n            /opt/spark/app/processor.py\n            ']
+[2025-04-25T10:41:04.013+0000] {subprocess.py:86} INFO - Output:
+[2025-04-25T10:41:04.032+0000] {subprocess.py:93} INFO - /opt/spark/bin/load-spark-env.sh: line 68: ps: command not found
+[2025-04-25T10:41:08.016+0000] {subprocess.py:93} INFO - --- Starting Spark Streaming Traffic Processor ---
+[2025-04-25T10:41:08.018+0000] {subprocess.py:93} INFO - Reading from Kafka: kafk-1:9092,kafk-2:9092,kafk-3:9092 / Topic: raw_traffic_data
+[2025-04-25T10:41:08.018+0000] {subprocess.py:93} INFO - Schema Registry URL: http://schema-registry:8081
+[2025-04-25T10:41:08.019+0000] {subprocess.py:93} INFO - Writing state to Redis: redis:6379
+[2025-04-25T10:41:08.020+0000] {subprocess.py:93} INFO - Writing history to ClickHouse: clickhouse-server:9000 (DB: traffic_db)
+[2025-04-25T10:41:08.021+0000] {subprocess.py:93} INFO - Writing Parquet to MinIO Bucket: traffic-data
+[2025-04-25T10:41:08.021+0000] {subprocess.py:93} INFO - Checkpoint Location Base: s3a://traffic-data/checkpoints_***
+[2025-04-25T10:41:08.112+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SparkContext: Running Spark version 3.3.4
+[2025-04-25T10:41:08.201+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2025-04-25T10:41:08.311+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO ResourceUtils: ==============================================================
+[2025-04-25T10:41:08.312+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2025-04-25T10:41:08.313+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO ResourceUtils: ==============================================================
+[2025-04-25T10:41:08.313+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SparkContext: Submitted application: TrafficProcessor
+[2025-04-25T10:41:08.342+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2025-04-25T10:41:08.350+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO ResourceProfile: Limiting resource is cpu
+[2025-04-25T10:41:08.351+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2025-04-25T10:41:08.436+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SecurityManager: Changing view acls to: ***
+[2025-04-25T10:41:08.437+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SecurityManager: Changing modify acls to: ***
+[2025-04-25T10:41:08.438+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SecurityManager: Changing view acls groups to:
+[2025-04-25T10:41:08.439+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SecurityManager: Changing modify acls groups to:
+[2025-04-25T10:41:08.440+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(***); groups with view permissions: Set(); users  with modify permissions: Set(***); groups with modify permissions: Set()
+[2025-04-25T10:41:08.744+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO Utils: Successfully started service 'sparkDriver' on port 46771.
+[2025-04-25T10:41:08.808+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SparkEnv: Registering MapOutputTracker
+[2025-04-25T10:41:08.858+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SparkEnv: Registering BlockManagerMaster
+[2025-04-25T10:41:08.897+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2025-04-25T10:41:08.899+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2025-04-25T10:41:08.913+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2025-04-25T10:41:08.963+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-4a3449b4-136c-4a11-89ec-bc728a3c03d9
+[2025-04-25T10:41:08.987+0000] {subprocess.py:93} INFO - 25/04/25 10:41:08 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+[2025-04-25T10:41:09.006+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO SparkEnv: Registering OutputCommitCoordinator
+[2025-04-25T10:41:09.294+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2025-04-25T10:41:09.421+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO Executor: Starting executor ID driver on host 1f4e090fb273
+[2025-04-25T10:41:09.433+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2025-04-25T10:41:09.464+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 42185.
+[2025-04-25T10:41:09.465+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO NettyBlockTransferService: Server created on 1f4e090fb273:42185
+[2025-04-25T10:41:09.468+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2025-04-25T10:41:09.479+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 1f4e090fb273, 42185, None)
+[2025-04-25T10:41:09.484+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO BlockManagerMasterEndpoint: Registering block manager 1f4e090fb273:42185 with 434.4 MiB RAM, BlockManagerId(driver, 1f4e090fb273, 42185, None)
+[2025-04-25T10:41:09.487+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 1f4e090fb273, 42185, None)
+[2025-04-25T10:41:09.489+0000] {subprocess.py:93} INFO - 25/04/25 10:41:09 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 1f4e090fb273, 42185, None)
+[2025-04-25T10:41:10.072+0000] {subprocess.py:93} INFO - Spark Session created. Version: 3.3.4
+[2025-04-25T10:41:13.107+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T10:41:13.109+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 294, in <module>
+[2025-04-25T10:41:13.112+0000] {subprocess.py:93} INFO -     main()
+[2025-04-25T10:41:13.113+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 235, in main
+[2025-04-25T10:41:13.116+0000] {subprocess.py:93} INFO -     deserialized_df = kafka_df.select(
+[2025-04-25T10:41:13.117+0000] {subprocess.py:93} INFO -                       ^^^^^^^^^^^^^^^^
+[2025-04-25T10:41:13.117+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 2023, in select
+[2025-04-25T10:41:13.118+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/java_gateway.py", line 1321, in __call__
+[2025-04-25T10:41:13.119+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 190, in deco
+[2025-04-25T10:41:13.120+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/protocol.py", line 326, in get_return_value
+[2025-04-25T10:41:13.121+0000] {subprocess.py:93} INFO - py4j.protocol.Py4JJavaError: An error occurred while calling o37.select.
+[2025-04-25T10:41:13.121+0000] {subprocess.py:93} INFO - : java.lang.NullPointerException: Cannot invoke "String.length()" because "content" is null
+[2025-04-25T10:41:13.122+0000] {subprocess.py:93} INFO - 	at com.fasterxml.jackson.core.JsonFactory.createParser(JsonFactory.java:1156)
+[2025-04-25T10:41:13.123+0000] {subprocess.py:93} INFO - 	at org.apache.avro.Schema$Parser.parse(Schema.java:1421)
+[2025-04-25T10:41:13.123+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.actualSchema$lzycompute(AvroDataToCatalyst.scala:57)
+[2025-04-25T10:41:13.124+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.actualSchema(AvroDataToCatalyst.scala:56)
+[2025-04-25T10:41:13.124+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.$anonfun$expectedSchema$1(AvroDataToCatalyst.scala:59)
+[2025-04-25T10:41:13.125+0000] {subprocess.py:93} INFO - 	at scala.Option.getOrElse(Option.scala:189)
+[2025-04-25T10:41:13.125+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.expectedSchema$lzycompute(AvroDataToCatalyst.scala:59)
+[2025-04-25T10:41:13.126+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.expectedSchema(AvroDataToCatalyst.scala:59)
+[2025-04-25T10:41:13.126+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.dataType$lzycompute(AvroDataToCatalyst.scala:42)
+[2025-04-25T10:41:13.127+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.avro.AvroDataToCatalyst.dataType(AvroDataToCatalyst.scala:41)
+[2025-04-25T10:41:13.127+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.Alias.toAttribute(namedExpressions.scala:194)
+[2025-04-25T10:41:13.127+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.Project.$anonfun$output$1(basicLogicalOperators.scala:70)
+[2025-04-25T10:41:13.128+0000] {subprocess.py:93} INFO - 	at scala.collection.TraversableLike.$anonfun$map$1(TraversableLike.scala:286)
+[2025-04-25T10:41:13.128+0000] {subprocess.py:93} INFO - 	at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
+[2025-04-25T10:41:13.129+0000] {subprocess.py:93} INFO - 	at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
+[2025-04-25T10:41:13.129+0000] {subprocess.py:93} INFO - 	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
+[2025-04-25T10:41:13.129+0000] {subprocess.py:93} INFO - 	at scala.collection.TraversableLike.map(TraversableLike.scala:286)
+[2025-04-25T10:41:13.130+0000] {subprocess.py:93} INFO - 	at scala.collection.TraversableLike.map$(TraversableLike.scala:279)
+[2025-04-25T10:41:13.130+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractTraversable.map(Traversable.scala:108)
+[2025-04-25T10:41:13.131+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.plans.logical.Project.output(basicLogicalOperators.scala:70)
+[2025-04-25T10:41:13.131+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.plans.QueryPlan.schema$lzycompute(QueryPlan.scala:385)
+[2025-04-25T10:41:13.131+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.plans.QueryPlan.schema(QueryPlan.scala:385)
+[2025-04-25T10:41:13.132+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.Dataset$.$anonfun$ofRows$1(Dataset.scala:91)
+[2025-04-25T10:41:13.132+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:779)
+[2025-04-25T10:41:13.132+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.Dataset$.ofRows(Dataset.scala:88)
+[2025-04-25T10:41:13.133+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.Dataset.withPlan(Dataset.scala:3927)
+[2025-04-25T10:41:13.134+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.Dataset.select(Dataset.scala:1518)
+[2025-04-25T10:41:13.134+0000] {subprocess.py:93} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[2025-04-25T10:41:13.135+0000] {subprocess.py:93} INFO - 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+[2025-04-25T10:41:13.135+0000] {subprocess.py:93} INFO - 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+[2025-04-25T10:41:13.136+0000] {subprocess.py:93} INFO - 	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+[2025-04-25T10:41:13.136+0000] {subprocess.py:93} INFO - 	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+[2025-04-25T10:41:13.136+0000] {subprocess.py:93} INFO - 	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
+[2025-04-25T10:41:13.137+0000] {subprocess.py:93} INFO - 	at py4j.Gateway.invoke(Gateway.java:282)
+[2025-04-25T10:41:13.137+0000] {subprocess.py:93} INFO - 	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+[2025-04-25T10:41:13.137+0000] {subprocess.py:93} INFO - 	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+[2025-04-25T10:41:13.138+0000] {subprocess.py:93} INFO - 	at py4j.ClientServerConnection.waitForCommands(ClientServerConnection.java:182)
+[2025-04-25T10:41:13.138+0000] {subprocess.py:93} INFO - 	at py4j.ClientServerConnection.run(ClientServerConnection.java:106)
+[2025-04-25T10:41:13.139+0000] {subprocess.py:93} INFO - 	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-04-25T10:41:13.139+0000] {subprocess.py:93} INFO - 
+[2025-04-25T10:41:13.268+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-04-25T10:41:13.284+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-04-25T10:41:13.290+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=traffic_data_pipeline, task_id=submit_traffic_processor_spark_job, execution_date=20250425T104102, start_date=20250425T104103, end_date=20250425T104113
+[2025-04-25T10:41:13.323+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 4 for task submit_traffic_processor_spark_job (Bash command failed. The command returned a non-zero exit code 1.; 184)
+[2025-04-25T10:41:13.342+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-04-25T10:41:13.388+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

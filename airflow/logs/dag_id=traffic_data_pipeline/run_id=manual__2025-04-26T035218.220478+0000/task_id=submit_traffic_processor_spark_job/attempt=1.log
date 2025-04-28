@@ -1,0 +1,31 @@
+[2025-04-26T03:52:19.693+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T03:52:18.220478+00:00 [queued]>
+[2025-04-26T03:52:19.707+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T03:52:18.220478+00:00 [queued]>
+[2025-04-26T03:52:19.708+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-04-26T03:52:19.728+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): submit_traffic_processor_spark_job> on 2025-04-26 03:52:18.220478+00:00
+[2025-04-26T03:52:19.737+0000] {standard_task_runner.py:60} INFO - Started process 183 to run task
+[2025-04-26T03:52:19.747+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'traffic_data_pipeline', 'submit_traffic_processor_spark_job', 'manual__2025-04-26T03:52:18.220478+00:00', '--job-id', '26', '--raw', '--subdir', 'DAGS_FOLDER/traffic_pipeline_dag.py', '--cfg-path', '/tmp/tmppuu75ie7']
+[2025-04-26T03:52:19.756+0000] {standard_task_runner.py:88} INFO - Job 26: Subtask submit_traffic_processor_spark_job
+[2025-04-26T03:52:19.906+0000] {task_command.py:423} INFO - Running <TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T03:52:18.220478+00:00 [running]> on host df84b95b25c0
+[2025-04-26T03:52:20.229+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='traffic_data_pipeline' AIRFLOW_CTX_TASK_ID='submit_traffic_processor_spark_job' AIRFLOW_CTX_EXECUTION_DATE='2025-04-26T03:52:18.220478+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-26T03:52:18.220478+00:00'
+[2025-04-26T03:52:20.231+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-04-26T03:52:20.233+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n            export KAFKA_BROKERS_INTERNAL="kafk-1:9092,kafk-2:9092,kafk-3:9092" && \\\n            export KAFKA_TOPIC="raw_traffic_data" && \\\n            export SCHEMA_REGISTRY_URL="http://schema-registry:8081" && \\\n            export REDIS_HOST="redis" && \\\n            export CLICKHOUSE_HOST="clickhouse-server" && \\\n            export CLICKHOUSE_NATIVE_PORT="9000" && \\\n            export MINIO_ENDPOINT="http://minio:9000" && \\\n            export MINIO_ACCESS_KEY="minioadmin" && \\\n            export MINIO_SECRET_KEY="minioadmin" && \\\n            export MINIO_BUCKET="traffic-data" && \\\n            export CHECKPOINT_LOCATION="s3a://traffic-data/checkpoints_***" && \\\n            export PYSPARK_PYTHON=/usr/bin/python3 && \\\n            spark-submit \\\n            --master local[*] \\\n            --deploy-mode client \\\n            --conf spark.sql.streaming.schemaInference=true \\\n            --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000 \\\n            --conf spark.hadoop.fs.s3a.access.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.secret.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.path.style.access=true \\\n            --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \\\n            --conf spark.sql.avro.schemaRegistryUrl=http://schema-registry:8081 \\\n            /opt/spark/app/processor.py\n            ']
+[2025-04-26T03:52:20.251+0000] {subprocess.py:86} INFO - Output:
+[2025-04-26T03:52:20.262+0000] {subprocess.py:93} INFO - /opt/spark/bin/load-spark-env.sh: line 68: ps: command not found
+[2025-04-26T03:52:23.277+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-26T03:52:23.278+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 8, in <module>
+[2025-04-26T03:52:23.280+0000] {subprocess.py:93} INFO -     import pandas as pd
+[2025-04-26T03:52:23.281+0000] {subprocess.py:93} INFO - ModuleNotFoundError: No module named 'pandas'
+[2025-04-26T03:52:23.294+0000] {subprocess.py:93} INFO - 25/04/26 03:52:23 INFO ShutdownHookManager: Shutdown hook called
+[2025-04-26T03:52:23.296+0000] {subprocess.py:93} INFO - 25/04/26 03:52:23 INFO ShutdownHookManager: Deleting directory /tmp/spark-03d39698-d7ed-48ff-bad9-95047f3cc4a7
+[2025-04-26T03:52:23.333+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-04-26T03:52:23.348+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-04-26T03:52:23.352+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=traffic_data_pipeline, task_id=submit_traffic_processor_spark_job, execution_date=20250426T035218, start_date=20250426T035219, end_date=20250426T035223
+[2025-04-26T03:52:23.373+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 26 for task submit_traffic_processor_spark_job (Bash command failed. The command returned a non-zero exit code 1.; 183)
+[2025-04-26T03:52:23.403+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-04-26T03:52:23.426+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

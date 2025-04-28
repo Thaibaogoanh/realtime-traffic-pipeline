@@ -1,0 +1,126 @@
+[2025-04-25T11:03:15.617+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T11:03:14.434029+00:00 [queued]>
+[2025-04-25T11:03:15.626+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T11:03:14.434029+00:00 [queued]>
+[2025-04-25T11:03:15.627+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-04-25T11:03:15.645+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): submit_traffic_processor_spark_job> on 2025-04-25 11:03:14.434029+00:00
+[2025-04-25T11:03:15.652+0000] {standard_task_runner.py:60} INFO - Started process 360 to run task
+[2025-04-25T11:03:15.656+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'traffic_data_pipeline', 'submit_traffic_processor_spark_job', 'manual__2025-04-25T11:03:14.434029+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/traffic_pipeline_dag.py', '--cfg-path', '/tmp/tmpqez61avb']
+[2025-04-25T11:03:15.659+0000] {standard_task_runner.py:88} INFO - Job 10: Subtask submit_traffic_processor_spark_job
+[2025-04-25T11:03:15.739+0000] {task_command.py:423} INFO - Running <TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T11:03:14.434029+00:00 [running]> on host 4d1d6bdd19a4
+[2025-04-25T11:03:16.005+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='traffic_data_pipeline' AIRFLOW_CTX_TASK_ID='submit_traffic_processor_spark_job' AIRFLOW_CTX_EXECUTION_DATE='2025-04-25T11:03:14.434029+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-25T11:03:14.434029+00:00'
+[2025-04-25T11:03:16.007+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-04-25T11:03:16.008+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n            export KAFKA_BROKERS_INTERNAL="kafk-1:9092,kafk-2:9092,kafk-3:9092" && \\\n            export KAFKA_TOPIC="raw_traffic_data" && \\\n            export SCHEMA_REGISTRY_URL="http://schema-registry:8081" && \\\n            export REDIS_HOST="redis" && \\\n            export CLICKHOUSE_HOST="clickhouse-server" && \\\n            export CLICKHOUSE_NATIVE_PORT="9000" && \\\n            export MINIO_ENDPOINT="http://minio:9000" && \\\n            export MINIO_ACCESS_KEY="minioadmin" && \\\n            export MINIO_SECRET_KEY="minioadmin" && \\\n            export MINIO_BUCKET="traffic-data" && \\\n            export CHECKPOINT_LOCATION="s3a://traffic-data/checkpoints_***" && \\\n            export PYSPARK_PYTHON=/usr/bin/python3 && \\\n            spark-submit \\\n            --master local[*] \\\n            --deploy-mode client \\\n            --conf spark.sql.streaming.schemaInference=true \\\n            --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000 \\\n            --conf spark.hadoop.fs.s3a.access.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.secret.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.path.style.access=true \\\n            --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \\\n            --conf spark.sql.avro.schemaRegistryUrl=http://schema-registry:8081 \\\n            /opt/spark/app/processor.py\n            ']
+[2025-04-25T11:03:16.019+0000] {subprocess.py:86} INFO - Output:
+[2025-04-25T11:03:16.029+0000] {subprocess.py:93} INFO - /opt/spark/bin/load-spark-env.sh: line 68: ps: command not found
+[2025-04-25T11:03:18.112+0000] {subprocess.py:93} INFO - --- Starting Spark Streaming Traffic Processor ---
+[2025-04-25T11:03:18.113+0000] {subprocess.py:93} INFO - Reading from Kafka: kafk-1:9092,kafk-2:9092,kafk-3:9092 / Topic: raw_traffic_data
+[2025-04-25T11:03:18.113+0000] {subprocess.py:93} INFO - Schema Registry URL: http://schema-registry:8081
+[2025-04-25T11:03:18.114+0000] {subprocess.py:93} INFO - Writing state to Redis: redis:6379
+[2025-04-25T11:03:18.114+0000] {subprocess.py:93} INFO - Writing history to ClickHouse: clickhouse-server:9000 (DB: traffic_db)
+[2025-04-25T11:03:18.115+0000] {subprocess.py:93} INFO - Writing Parquet to MinIO Bucket: traffic-data
+[2025-04-25T11:03:18.115+0000] {subprocess.py:93} INFO - Checkpoint Location Base: s3a://traffic-data/checkpoints_***
+[2025-04-25T11:03:18.188+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SparkContext: Running Spark version 3.3.4
+[2025-04-25T11:03:18.240+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2025-04-25T11:03:18.310+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO ResourceUtils: ==============================================================
+[2025-04-25T11:03:18.311+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2025-04-25T11:03:18.311+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO ResourceUtils: ==============================================================
+[2025-04-25T11:03:18.312+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SparkContext: Submitted application: TrafficProcessor
+[2025-04-25T11:03:18.327+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2025-04-25T11:03:18.334+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO ResourceProfile: Limiting resource is cpu
+[2025-04-25T11:03:18.334+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2025-04-25T11:03:18.369+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SecurityManager: Changing view acls to: ***
+[2025-04-25T11:03:18.370+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SecurityManager: Changing modify acls to: ***
+[2025-04-25T11:03:18.371+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SecurityManager: Changing view acls groups to:
+[2025-04-25T11:03:18.371+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SecurityManager: Changing modify acls groups to:
+[2025-04-25T11:03:18.372+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(***); groups with view permissions: Set(); users  with modify permissions: Set(***); groups with modify permissions: Set()
+[2025-04-25T11:03:18.541+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO Utils: Successfully started service 'sparkDriver' on port 34575.
+[2025-04-25T11:03:18.562+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SparkEnv: Registering MapOutputTracker
+[2025-04-25T11:03:18.589+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SparkEnv: Registering BlockManagerMaster
+[2025-04-25T11:03:18.608+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2025-04-25T11:03:18.609+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2025-04-25T11:03:18.613+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2025-04-25T11:03:18.626+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-41e76cd7-e069-42db-b465-94e4438bf75b
+[2025-04-25T11:03:18.646+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+[2025-04-25T11:03:18.657+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO SparkEnv: Registering OutputCommitCoordinator
+[2025-04-25T11:03:18.806+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2025-04-25T11:03:18.888+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO Executor: Starting executor ID driver on host 4d1d6bdd19a4
+[2025-04-25T11:03:18.897+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2025-04-25T11:03:18.911+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 34497.
+[2025-04-25T11:03:18.912+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO NettyBlockTransferService: Server created on 4d1d6bdd19a4:34497
+[2025-04-25T11:03:18.913+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2025-04-25T11:03:18.917+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 4d1d6bdd19a4, 34497, None)
+[2025-04-25T11:03:18.920+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManagerMasterEndpoint: Registering block manager 4d1d6bdd19a4:34497 with 434.4 MiB RAM, BlockManagerId(driver, 4d1d6bdd19a4, 34497, None)
+[2025-04-25T11:03:18.921+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 4d1d6bdd19a4, 34497, None)
+[2025-04-25T11:03:18.922+0000] {subprocess.py:93} INFO - 25/04/25 11:03:18 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 4d1d6bdd19a4, 34497, None)
+[2025-04-25T11:03:19.201+0000] {subprocess.py:93} INFO - Spark Session created. Version: 3.3.4
+[2025-04-25T11:03:21.261+0000] {subprocess.py:93} INFO - Reading Avro schema from file: /opt/spark/schemas/raw_traffic_event.avsc
+[2025-04-25T11:03:21.265+0000] {subprocess.py:93} INFO - Successfully read Avro schema string.
+[2025-04-25T11:03:21.265+0000] {subprocess.py:93} INFO - Deserializing Kafka messages using schema string from file...
+[2025-04-25T11:03:21.370+0000] {subprocess.py:93} INFO - 25/04/25 11:03:21 WARN Schema: Ignored the com.traffic.events.RawTrafficEvent.timestamp.logicalType property ("iso8601-timestamp-millis"). It should probably be nested inside the "type" for the field.
+[2025-04-25T11:03:21.589+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T11:03:21.590+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 458, in dumps
+[2025-04-25T11:03:21.590+0000] {subprocess.py:93} INFO -     return cloudpickle.dumps(obj, pickle_protocol)
+[2025-04-25T11:03:21.591+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.591+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 73, in dumps
+[2025-04-25T11:03:21.591+0000] {subprocess.py:93} INFO -     cp.dump(obj)
+[2025-04-25T11:03:21.592+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 602, in dump
+[2025-04-25T11:03:21.592+0000] {subprocess.py:93} INFO -     return Pickler.dump(self, obj)
+[2025-04-25T11:03:21.593+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.594+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 692, in reducer_override
+[2025-04-25T11:03:21.595+0000] {subprocess.py:93} INFO -     return self._function_reduce(obj)
+[2025-04-25T11:03:21.595+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.596+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 565, in _function_reduce
+[2025-04-25T11:03:21.596+0000] {subprocess.py:93} INFO -     return self._dynamic_function_reduce(obj)
+[2025-04-25T11:03:21.597+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.597+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 546, in _dynamic_function_reduce
+[2025-04-25T11:03:21.598+0000] {subprocess.py:93} INFO -     state = _function_getstate(func)
+[2025-04-25T11:03:21.598+0000] {subprocess.py:93} INFO -             ^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.599+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 157, in _function_getstate
+[2025-04-25T11:03:21.599+0000] {subprocess.py:93} INFO -     f_globals_ref = _extract_code_globals(func.__code__)
+[2025-04-25T11:03:21.600+0000] {subprocess.py:93} INFO -                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.600+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle.py", line 334, in _extract_code_globals
+[2025-04-25T11:03:21.601+0000] {subprocess.py:93} INFO -     out_names = {names[oparg]: None for _, oparg in _walk_global_ops(co)}
+[2025-04-25T11:03:21.601+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.602+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle.py", line 334, in <dictcomp>
+[2025-04-25T11:03:21.602+0000] {subprocess.py:93} INFO -     out_names = {names[oparg]: None for _, oparg in _walk_global_ops(co)}
+[2025-04-25T11:03:21.602+0000] {subprocess.py:93} INFO -                  ~~~~~^^^^^^^
+[2025-04-25T11:03:21.603+0000] {subprocess.py:93} INFO - IndexError: tuple index out of range
+[2025-04-25T11:03:21.603+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T11:03:21.604+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 458, in dumps
+[2025-04-25T11:03:21.604+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 73, in dumps
+[2025-04-25T11:03:21.605+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 602, in dump
+[2025-04-25T11:03:21.605+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 692, in reducer_override
+[2025-04-25T11:03:21.606+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 565, in _function_reduce
+[2025-04-25T11:03:21.606+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 546, in _dynamic_function_reduce
+[2025-04-25T11:03:21.607+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle_fast.py", line 157, in _function_getstate
+[2025-04-25T11:03:21.608+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle.py", line 334, in _extract_code_globals
+[2025-04-25T11:03:21.609+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/cloudpickle/cloudpickle.py", line 334, in <dictcomp>
+[2025-04-25T11:03:21.609+0000] {subprocess.py:93} INFO - IndexError: tuple index out of range
+[2025-04-25T11:03:21.610+0000] {subprocess.py:93} INFO - 
+[2025-04-25T11:03:21.611+0000] {subprocess.py:93} INFO - During handling of the above exception, another exception occurred:
+[2025-04-25T11:03:21.611+0000] {subprocess.py:93} INFO - 
+[2025-04-25T11:03:21.611+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T11:03:21.612+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 316, in <module>
+[2025-04-25T11:03:21.612+0000] {subprocess.py:93} INFO -     main()
+[2025-04-25T11:03:21.614+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 274, in main
+[2025-04-25T11:03:21.614+0000] {subprocess.py:93} INFO -     mapped_df = value_df.withColumn("segment_id", find_nearest_segment_udf(col("latitude"), col("longitude"))) \
+[2025-04-25T11:03:21.615+0000] {subprocess.py:93} INFO -                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T11:03:21.616+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/udf.py", line 276, in wrapper
+[2025-04-25T11:03:21.616+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/udf.py", line 249, in __call__
+[2025-04-25T11:03:21.617+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/udf.py", line 215, in _judf
+[2025-04-25T11:03:21.618+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/udf.py", line 224, in _create_judf
+[2025-04-25T11:03:21.618+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/udf.py", line 50, in _wrap_function
+[2025-04-25T11:03:21.619+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/rdd.py", line 3345, in _prepare_for_python_RDD
+[2025-04-25T11:03:21.621+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 468, in dumps
+[2025-04-25T11:03:21.621+0000] {subprocess.py:93} INFO - _pickle.PicklingError: Could not serialize object: IndexError: tuple index out of range
+[2025-04-25T11:03:21.761+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-04-25T11:03:21.777+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-04-25T11:03:21.782+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=traffic_data_pipeline, task_id=submit_traffic_processor_spark_job, execution_date=20250425T110314, start_date=20250425T110315, end_date=20250425T110321
+[2025-04-25T11:03:21.805+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 10 for task submit_traffic_processor_spark_job (Bash command failed. The command returned a non-zero exit code 1.; 360)
+[2025-04-25T11:03:21.817+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-04-25T11:03:21.852+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

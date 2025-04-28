@@ -1,0 +1,6 @@
+fastapi>=0.95.0
+uvicorn[standard]>=0.21.0
+redis[hiredis]>=4.6.0
+clickhouse-connect>=0.6.0 # Hoặc dùng clickhouse-driver, đảm bảo giống bên Spark nếu cần chia sẻ code
+websockets>=10.0 # Thường được cài bởi uvicorn[standard] nhưng liệt kê rõ ràng
+python-dotenv>=0.20.0 # Nếu bạn muốn đọc file .env trong code Python (thường không cần nếu Docker Compose đã set env vars)

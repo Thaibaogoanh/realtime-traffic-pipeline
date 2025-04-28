@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "namespace": "com.traffic.events",
+  "name": "RawTrafficEvent",
+  "fields": [
+    {"name": "vehicle_id", "type": "string"},
+    {"name": "timestamp", "type": "string"},
+    {"name": "latitude", "type": "double"},
+    {"name": "longitude", "type": "double"},
+    {"name": "speed", "type": "double"},
+    {"name": "segment_id_actual", "type": "string"}
+  ]
+}

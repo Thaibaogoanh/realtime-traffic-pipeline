@@ -1,0 +1,71 @@
+[2025-04-26T06:18:44.842+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T06:18:43.434851+00:00 [queued]>
+[2025-04-26T06:18:44.853+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T06:18:43.434851+00:00 [queued]>
+[2025-04-26T06:18:44.854+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-04-26T06:18:44.870+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): submit_traffic_processor_spark_job> on 2025-04-26 06:18:43.434851+00:00
+[2025-04-26T06:18:44.876+0000] {standard_task_runner.py:60} INFO - Started process 966 to run task
+[2025-04-26T06:18:44.883+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'traffic_data_pipeline', 'submit_traffic_processor_spark_job', 'manual__2025-04-26T06:18:43.434851+00:00', '--job-id', '38', '--raw', '--subdir', 'DAGS_FOLDER/traffic_pipeline_dag.py', '--cfg-path', '/tmp/tmpa88wc0p9']
+[2025-04-26T06:18:44.887+0000] {standard_task_runner.py:88} INFO - Job 38: Subtask submit_traffic_processor_spark_job
+[2025-04-26T06:18:44.967+0000] {task_command.py:423} INFO - Running <TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-26T06:18:43.434851+00:00 [running]> on host df84b95b25c0
+[2025-04-26T06:18:45.075+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='traffic_data_pipeline' AIRFLOW_CTX_TASK_ID='submit_traffic_processor_spark_job' AIRFLOW_CTX_EXECUTION_DATE='2025-04-26T06:18:43.434851+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-26T06:18:43.434851+00:00'
+[2025-04-26T06:18:45.077+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-04-26T06:18:45.079+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n            echo "--- Checking Line Endings for processor.py ---"\n            cat -e /opt/spark/app/processor.py | head -n 10\n            echo "--- Finished Checking Line Endings ---"\n            echo "Setting PYTHONPATH..."\n            PYTHON_USER_SITE="/home/***/.local/lib/python3.10/site-packages"\n            export PYTHONPATH="${PYTHON_USER_SITE}:${PYTHONPATH:-}"\n            echo "Using PYTHONPATH=$PYTHONPATH"\n            echo "Exporting other environment variables..."\n            export KAFKA_BROKERS_INTERNAL="$KAFKA_BROKERS_INTERNAL" && \\\n            export KAFKA_TOPIC="$KAFKA_TOPIC" && \\\n            export SCHEMA_REGISTRY_URL="$SCHEMA_REGISTRY_URL" && \\\n            export REDIS_HOST="$REDIS_HOST" && \\\n            export CLICKHOUSE_HOST="$CLICKHOUSE_HOST" && \\\n            export CLICKHOUSE_NATIVE_PORT="$CLICKHOUSE_NATIVE_PORT" && \\\n            export MINIO_ENDPOINT="$MINIO_ENDPOINT" && \\\n            export MINIO_ACCESS_KEY="$MINIO_ACCESS_KEY" && \\\n            export MINIO_SECRET_KEY="$MINIO_SECRET_KEY" && \\\n            export MINIO_BUCKET="$MINIO_BUCKET" && \\\n            CHECKPOINT_LOCATION_VAR="s3a://${MINIO_BUCKET:-traffic-data}/checkpoints_***/traffic_processing_pipeline" && \\\n            export CHECKPOINT_LOCATION="$CHECKPOINT_LOCATION_VAR" && \\\n            export PYSPARK_PYTHON=/usr/bin/python3 && \\\n            echo "--- Running Spark Submit ---" && \\\n            spark-submit \\\n            --master local[*] \\\n            --deploy-mode client \\\n            --conf spark.sql.streaming.schemaInference=true \\\n            --conf spark.hadoop.fs.s3a.endpoint="$MINIO_ENDPOINT" \\\n            --conf spark.hadoop.fs.s3a.access.key="$MINIO_ACCESS_KEY" \\\n            --conf spark.hadoop.fs.s3a.secret.key="$MINIO_SECRET_KEY" \\\n            --conf spark.hadoop.fs.s3a.path.style.access=true \\\n            --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \\\n            --conf spark.sql.avro.schemaRegistryUrl="$SCHEMA_REGISTRY_URL" \\\n            /opt/spark/app/processor.py\n            ']
+[2025-04-26T06:18:45.088+0000] {subprocess.py:86} INFO - Output:
+[2025-04-26T06:18:45.097+0000] {subprocess.py:93} INFO - --- Checking Line Endings for processor.py ---
+[2025-04-26T06:18:45.102+0000] {subprocess.py:93} INFO - import os$
+[2025-04-26T06:18:45.103+0000] {subprocess.py:93} INFO - import json$
+[2025-04-26T06:18:45.103+0000] {subprocess.py:93} INFO - import math$
+[2025-04-26T06:18:45.104+0000] {subprocess.py:93} INFO - from datetime import datetime$
+[2025-04-26T06:18:45.104+0000] {subprocess.py:93} INFO - import traceback$
+[2025-04-26T06:18:45.105+0000] {subprocess.py:93} INFO - $
+[2025-04-26T06:18:45.105+0000] {subprocess.py:93} INFO - # Import thM-FM-0 viM-aM-;M-^Gn cM-aM-:M-'n thiM-aM-:M-?t cho Pandas UDF$
+[2025-04-26T06:18:45.106+0000] {subprocess.py:93} INFO - import pandas as pd$
+[2025-04-26T06:18:45.107+0000] {subprocess.py:93} INFO - from pyspark.sql import SparkSession$
+[2025-04-26T06:18:45.107+0000] {subprocess.py:93} INFO - from pyspark.sql.functions import col, window, avg, count, udf, lit, expr, pandas_udf, PandasUDFType, year, month, dayofmonth, hour$
+[2025-04-26T06:18:45.108+0000] {subprocess.py:93} INFO - --- Finished Checking Line Endings ---
+[2025-04-26T06:18:45.108+0000] {subprocess.py:93} INFO - Setting PYTHONPATH...
+[2025-04-26T06:18:45.109+0000] {subprocess.py:93} INFO - Using PYTHONPATH=/home/***/.local/lib/python3.10/site-packages:
+[2025-04-26T06:18:45.110+0000] {subprocess.py:93} INFO - Exporting other environment variables...
+[2025-04-26T06:18:45.110+0000] {subprocess.py:93} INFO - --- Running Spark Submit ---
+[2025-04-26T06:18:45.111+0000] {subprocess.py:93} INFO - /opt/spark/bin/load-spark-env.sh: line 68: ps: command not found
+[2025-04-26T06:18:47.849+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-26T06:18:47.851+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 8, in <module>
+[2025-04-26T06:18:47.851+0000] {subprocess.py:93} INFO -     import pandas as pd
+[2025-04-26T06:18:47.852+0000] {subprocess.py:93} INFO -   File "/home/***/.local/lib/python3.10/site-packages/pandas/__init__.py", line 16, in <module>
+[2025-04-26T06:18:47.852+0000] {subprocess.py:93} INFO -     raise ImportError(
+[2025-04-26T06:18:47.853+0000] {subprocess.py:93} INFO - ImportError: Unable to import required dependencies:
+[2025-04-26T06:18:47.853+0000] {subprocess.py:93} INFO - numpy:
+[2025-04-26T06:18:47.854+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.855+0000] {subprocess.py:93} INFO - IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
+[2025-04-26T06:18:47.855+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.856+0000] {subprocess.py:93} INFO - Importing the numpy C-extensions failed. This error can happen for
+[2025-04-26T06:18:47.857+0000] {subprocess.py:93} INFO - many reasons, often due to issues with your setup or how NumPy was
+[2025-04-26T06:18:47.858+0000] {subprocess.py:93} INFO - installed.
+[2025-04-26T06:18:47.859+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.859+0000] {subprocess.py:93} INFO - We have compiled some common reasons and troubleshooting tips at:
+[2025-04-26T06:18:47.860+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.861+0000] {subprocess.py:93} INFO -     https://numpy.org/devdocs/user/troubleshooting-importerror.html
+[2025-04-26T06:18:47.861+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.862+0000] {subprocess.py:93} INFO - Please note and check the following:
+[2025-04-26T06:18:47.863+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.863+0000] {subprocess.py:93} INFO -   * The Python version is: Python3.11 from "/usr/bin/python3"
+[2025-04-26T06:18:47.863+0000] {subprocess.py:93} INFO -   * The NumPy version is: "1.24.4"
+[2025-04-26T06:18:47.864+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.864+0000] {subprocess.py:93} INFO - and make sure that they are the versions you expect.
+[2025-04-26T06:18:47.865+0000] {subprocess.py:93} INFO - Please carefully study the documentation linked above for further help.
+[2025-04-26T06:18:47.865+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.865+0000] {subprocess.py:93} INFO - Original error was: No module named 'numpy.core._multiarray_umath'
+[2025-04-26T06:18:47.866+0000] {subprocess.py:93} INFO - 
+[2025-04-26T06:18:47.868+0000] {subprocess.py:93} INFO - 25/04/26 06:18:47 INFO ShutdownHookManager: Shutdown hook called
+[2025-04-26T06:18:47.874+0000] {subprocess.py:93} INFO - 25/04/26 06:18:47 INFO ShutdownHookManager: Deleting directory /tmp/spark-c22505d8-f153-46a4-979a-09468227736b
+[2025-04-26T06:18:47.903+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-04-26T06:18:47.927+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-04-26T06:18:47.931+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=traffic_data_pipeline, task_id=submit_traffic_processor_spark_job, execution_date=20250426T061843, start_date=20250426T061844, end_date=20250426T061847
+[2025-04-26T06:18:47.951+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 38 for task submit_traffic_processor_spark_job (Bash command failed. The command returned a non-zero exit code 1.; 966)
+[2025-04-26T06:18:47.970+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-04-26T06:18:47.995+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

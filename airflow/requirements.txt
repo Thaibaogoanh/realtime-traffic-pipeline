@@ -1,0 +1,9 @@
+apache-airflow>=2.8.0
+apache-airflow-providers-postgres
+psycopg2-binary
+cloudpickle==2.2.1
+pyarrow>=10.0.0
+redis>=4.6.0
+clickhouse-connect>=0.6.0
+boto3>=1.26.0
+pandas>=1.5.0

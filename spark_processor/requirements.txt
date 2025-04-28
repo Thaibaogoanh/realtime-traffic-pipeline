@@ -1,0 +1,5 @@
+redis>=4.6.0
+clickhouse-connect>=0.6.0
+boto3>=1.26.0 # Cần cho tương tác S3/MinIO
+pandas>=1.5.0
+# pyspark # Không cần nếu chạy qua spark-submit với Spark đã cài sẵn

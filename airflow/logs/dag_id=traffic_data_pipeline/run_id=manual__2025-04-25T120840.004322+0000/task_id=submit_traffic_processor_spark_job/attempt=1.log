@@ -1,0 +1,617 @@
+[2025-04-25T12:08:41.366+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T12:08:40.004322+00:00 [queued]>
+[2025-04-25T12:08:41.376+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T12:08:40.004322+00:00 [queued]>
+[2025-04-25T12:08:41.377+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-04-25T12:08:41.395+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): submit_traffic_processor_spark_job> on 2025-04-25 12:08:40.004322+00:00
+[2025-04-25T12:08:41.401+0000] {standard_task_runner.py:60} INFO - Started process 263 to run task
+[2025-04-25T12:08:41.405+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'traffic_data_pipeline', 'submit_traffic_processor_spark_job', 'manual__2025-04-25T12:08:40.004322+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/traffic_pipeline_dag.py', '--cfg-path', '/tmp/tmpkrod5eh2']
+[2025-04-25T12:08:41.408+0000] {standard_task_runner.py:88} INFO - Job 2: Subtask submit_traffic_processor_spark_job
+[2025-04-25T12:08:41.482+0000] {task_command.py:423} INFO - Running <TaskInstance: traffic_data_pipeline.submit_traffic_processor_spark_job manual__2025-04-25T12:08:40.004322+00:00 [running]> on host f81ac7673fa0
+[2025-04-25T12:08:41.734+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='traffic_data_pipeline' AIRFLOW_CTX_TASK_ID='submit_traffic_processor_spark_job' AIRFLOW_CTX_EXECUTION_DATE='2025-04-25T12:08:40.004322+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-25T12:08:40.004322+00:00'
+[2025-04-25T12:08:41.739+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2025-04-25T12:08:41.742+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', '\n            export KAFKA_BROKERS_INTERNAL="kafk-1:9092,kafk-2:9092,kafk-3:9092" && \\\n            export KAFKA_TOPIC="raw_traffic_data" && \\\n            export SCHEMA_REGISTRY_URL="http://schema-registry:8081" && \\\n            export REDIS_HOST="redis" && \\\n            export CLICKHOUSE_HOST="clickhouse-server" && \\\n            export CLICKHOUSE_NATIVE_PORT="9000" && \\\n            export MINIO_ENDPOINT="http://minio:9000" && \\\n            export MINIO_ACCESS_KEY="minioadmin" && \\\n            export MINIO_SECRET_KEY="minioadmin" && \\\n            export MINIO_BUCKET="traffic-data" && \\\n            export CHECKPOINT_LOCATION="s3a://traffic-data/checkpoints_***" && \\\n            export PYSPARK_PYTHON=/usr/bin/python3 && \\\n            spark-submit \\\n            --master local[*] \\\n            --deploy-mode client \\\n            --conf spark.sql.streaming.schemaInference=true \\\n            --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000 \\\n            --conf spark.hadoop.fs.s3a.access.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.secret.key=minioadmin \\\n            --conf spark.hadoop.fs.s3a.path.style.access=true \\\n            --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \\\n            --conf spark.sql.avro.schemaRegistryUrl=http://schema-registry:8081 \\\n            /opt/spark/app/processor.py\n            ']
+[2025-04-25T12:08:41.777+0000] {subprocess.py:86} INFO - Output:
+[2025-04-25T12:08:41.793+0000] {subprocess.py:93} INFO - /opt/spark/bin/load-spark-env.sh: line 68: ps: command not found
+[2025-04-25T12:08:48.243+0000] {subprocess.py:93} INFO - --- Starting Spark Streaming Traffic Processor ---
+[2025-04-25T12:08:48.244+0000] {subprocess.py:93} INFO - Reading from Kafka: kafk-1:9092,kafk-2:9092,kafk-3:9092 / Topic: raw_traffic_data
+[2025-04-25T12:08:48.245+0000] {subprocess.py:93} INFO - Schema Registry URL: http://schema-registry:8081
+[2025-04-25T12:08:48.245+0000] {subprocess.py:93} INFO - Writing state to Redis: redis:6379
+[2025-04-25T12:08:48.246+0000] {subprocess.py:93} INFO - Writing history to ClickHouse: clickhouse-server:9000 (DB: traffic_db)
+[2025-04-25T12:08:48.246+0000] {subprocess.py:93} INFO - Writing Parquet to MinIO Bucket: traffic-data
+[2025-04-25T12:08:48.247+0000] {subprocess.py:93} INFO - Checkpoint Location Base: s3a://traffic-data/checkpoints_***
+[2025-04-25T12:08:48.338+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SparkContext: Running Spark version 3.3.4
+[2025-04-25T12:08:48.434+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2025-04-25T12:08:48.612+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO ResourceUtils: ==============================================================
+[2025-04-25T12:08:48.613+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO ResourceUtils: No custom resources configured for spark.driver.
+[2025-04-25T12:08:48.614+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO ResourceUtils: ==============================================================
+[2025-04-25T12:08:48.614+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SparkContext: Submitted application: TrafficProcessor
+[2025-04-25T12:08:48.644+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+[2025-04-25T12:08:48.654+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO ResourceProfile: Limiting resource is cpu
+[2025-04-25T12:08:48.655+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO ResourceProfileManager: Added ResourceProfile id: 0
+[2025-04-25T12:08:48.752+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SecurityManager: Changing view acls to: ***
+[2025-04-25T12:08:48.753+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SecurityManager: Changing modify acls to: ***
+[2025-04-25T12:08:48.754+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SecurityManager: Changing view acls groups to:
+[2025-04-25T12:08:48.755+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SecurityManager: Changing modify acls groups to:
+[2025-04-25T12:08:48.756+0000] {subprocess.py:93} INFO - 25/04/25 12:08:48 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(***); groups with view permissions: Set(); users  with modify permissions: Set(***); groups with modify permissions: Set()
+[2025-04-25T12:08:49.153+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO Utils: Successfully started service 'sparkDriver' on port 36247.
+[2025-04-25T12:08:49.335+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO SparkEnv: Registering MapOutputTracker
+[2025-04-25T12:08:49.475+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO SparkEnv: Registering BlockManagerMaster
+[2025-04-25T12:08:49.544+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+[2025-04-25T12:08:49.547+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+[2025-04-25T12:08:49.584+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+[2025-04-25T12:08:49.683+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-0429f8dd-b549-4b52-88e2-223862d2b835
+[2025-04-25T12:08:49.726+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+[2025-04-25T12:08:49.754+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO SparkEnv: Registering OutputCommitCoordinator
+[2025-04-25T12:08:49.982+0000] {subprocess.py:93} INFO - 25/04/25 12:08:49 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+[2025-04-25T12:08:50.156+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO Executor: Starting executor ID driver on host f81ac7673fa0
+[2025-04-25T12:08:50.164+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+[2025-04-25T12:08:50.184+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 33301.
+[2025-04-25T12:08:50.185+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO NettyBlockTransferService: Server created on f81ac7673fa0:33301
+[2025-04-25T12:08:50.186+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+[2025-04-25T12:08:50.199+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, f81ac7673fa0, 33301, None)
+[2025-04-25T12:08:50.206+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO BlockManagerMasterEndpoint: Registering block manager f81ac7673fa0:33301 with 434.4 MiB RAM, BlockManagerId(driver, f81ac7673fa0, 33301, None)
+[2025-04-25T12:08:50.216+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, f81ac7673fa0, 33301, None)
+[2025-04-25T12:08:50.223+0000] {subprocess.py:93} INFO - 25/04/25 12:08:50 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, f81ac7673fa0, 33301, None)
+[2025-04-25T12:08:50.823+0000] {subprocess.py:93} INFO - Spark Session created. Version: 3.3.4
+[2025-04-25T12:08:50.824+0000] {subprocess.py:93} INFO - Broadcasting segments data...
+[2025-04-25T12:08:51.024+0000] {subprocess.py:93} INFO - Segments data broadcasted.
+[2025-04-25T12:08:54.498+0000] {subprocess.py:93} INFO - Reading Avro schema from file: /opt/spark/schemas/raw_traffic_event.avsc
+[2025-04-25T12:08:54.503+0000] {subprocess.py:93} INFO - Successfully read Avro schema string.
+[2025-04-25T12:08:54.504+0000] {subprocess.py:93} INFO - Deserializing Kafka messages using schema string from file...
+[2025-04-25T12:08:55.117+0000] {subprocess.py:93} INFO - Using checkpoint location: s3a://traffic-data/checkpoints_***/traffic_processing_pipeline
+[2025-04-25T12:08:55.390+0000] {subprocess.py:93} INFO - 25/04/25 12:08:55 WARN MetricsConfig: Cannot locate configuration: tried hadoop-metrics2-s3a-file-system.properties,hadoop-metrics2.properties
+[2025-04-25T12:08:56.426+0000] {subprocess.py:93} INFO - 25/04/25 12:08:56 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+[2025-04-25T12:08:57.002+0000] {subprocess.py:93} INFO - Streaming query 'traffic_processing_pipeline' started.
+[2025-04-25T12:09:01.319+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 WARN KafkaDataConsumer: KafkaDataConsumer is not running in UninterruptibleThread. It may hang when KafkaDataConsumer's methods are interrupted because of KAFKA-1894
+[2025-04-25T12:09:01.320+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 WARN KafkaDataConsumer: KafkaDataConsumer is not running in UninterruptibleThread. It may hang when KafkaDataConsumer's methods are interrupted because of KAFKA-1894
+[2025-04-25T12:09:01.722+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR PythonUDFRunner: Python worker exited unexpectedly (crashed)
+[2025-04-25T12:09:01.724+0000] {subprocess.py:93} INFO - org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.724+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 666, in main
+[2025-04-25T12:09:01.725+0000] {subprocess.py:93} INFO -     eval_type = read_int(infile)
+[2025-04-25T12:09:01.726+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.726+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 595, in read_int
+[2025-04-25T12:09:01.727+0000] {subprocess.py:93} INFO -     raise EOFError
+[2025-04-25T12:09:01.729+0000] {subprocess.py:93} INFO - EOFError
+[2025-04-25T12:09:01.730+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.730+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.731+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.731+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.732+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.732+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.733+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.733+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.734+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.735+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.processNext(Unknown Source)
+[2025-04-25T12:09:01.736+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.736+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.737+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.737+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage4.hashAgg_doAggregateWithKeys_0$(Unknown Source)
+[2025-04-25T12:09:01.738+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage4.processNext(Unknown Source)
+[2025-04-25T12:09:01.739+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.739+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.740+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.741+0000] {subprocess.py:93} INFO - 	at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:140)
+[2025-04-25T12:09:01.741+0000] {subprocess.py:93} INFO - 	at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)
+[2025-04-25T12:09:01.742+0000] {subprocess.py:93} INFO - 	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)
+[2025-04-25T12:09:01.743+0000] {subprocess.py:93} INFO - 	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:52)
+[2025-04-25T12:09:01.743+0000] {subprocess.py:93} INFO - 	at org.apache.spark.scheduler.Task.run(Task.scala:136)
+[2025-04-25T12:09:01.744+0000] {subprocess.py:93} INFO - 	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:548)
+[2025-04-25T12:09:01.745+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1504)
+[2025-04-25T12:09:01.746+0000] {subprocess.py:93} INFO - 	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:551)
+[2025-04-25T12:09:01.746+0000] {subprocess.py:93} INFO - 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2025-04-25T12:09:01.747+0000] {subprocess.py:93} INFO - 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2025-04-25T12:09:01.747+0000] {subprocess.py:93} INFO - 	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-04-25T12:09:01.748+0000] {subprocess.py:93} INFO - Caused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.749+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.750+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.751+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.751+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.752+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.753+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.753+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.754+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.754+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.755+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.755+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.756+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.757+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.758+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.759+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.760+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.760+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.761+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.762+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.762+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.763+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.764+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.764+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.765+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.765+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.766+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.766+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.767+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.767+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.768+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.769+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.769+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.770+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.771+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.771+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.772+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.772+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.773+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.774+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.775+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.775+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.776+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.776+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.777+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.778+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.778+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.779+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR PythonUDFRunner: Python worker exited unexpectedly (crashed)
+[2025-04-25T12:09:01.780+0000] {subprocess.py:93} INFO - org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.780+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 666, in main
+[2025-04-25T12:09:01.781+0000] {subprocess.py:93} INFO -     eval_type = read_int(infile)
+[2025-04-25T12:09:01.781+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.782+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 595, in read_int
+[2025-04-25T12:09:01.783+0000] {subprocess.py:93} INFO -     raise EOFError
+[2025-04-25T12:09:01.783+0000] {subprocess.py:93} INFO - EOFError
+[2025-04-25T12:09:01.784+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.784+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.785+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.785+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.786+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.786+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.786+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.787+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.787+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.788+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage3.processNext(Unknown Source)
+[2025-04-25T12:09:01.788+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.789+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.789+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.790+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage4.hashAgg_doAggregateWithKeys_0$(Unknown Source)
+[2025-04-25T12:09:01.790+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage4.processNext(Unknown Source)
+[2025-04-25T12:09:01.791+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.791+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.792+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.793+0000] {subprocess.py:93} INFO - 	at org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:140)
+[2025-04-25T12:09:01.793+0000] {subprocess.py:93} INFO - 	at org.apache.spark.shuffle.ShuffleWriteProcessor.write(ShuffleWriteProcessor.scala:59)
+[2025-04-25T12:09:01.794+0000] {subprocess.py:93} INFO - 	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)
+[2025-04-25T12:09:01.794+0000] {subprocess.py:93} INFO - 	at org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:52)
+[2025-04-25T12:09:01.795+0000] {subprocess.py:93} INFO - 	at org.apache.spark.scheduler.Task.run(Task.scala:136)
+[2025-04-25T12:09:01.795+0000] {subprocess.py:93} INFO - 	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$3(Executor.scala:548)
+[2025-04-25T12:09:01.796+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1504)
+[2025-04-25T12:09:01.796+0000] {subprocess.py:93} INFO - 	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:551)
+[2025-04-25T12:09:01.797+0000] {subprocess.py:93} INFO - 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+[2025-04-25T12:09:01.797+0000] {subprocess.py:93} INFO - 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+[2025-04-25T12:09:01.797+0000] {subprocess.py:93} INFO - 	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-04-25T12:09:01.798+0000] {subprocess.py:93} INFO - Caused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.798+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.799+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.800+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.800+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.801+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.801+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.802+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.802+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.803+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.803+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.804+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.804+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.805+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.805+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.806+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.806+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.807+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.808+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.808+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.809+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.809+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.810+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.811+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.811+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.812+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.812+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.813+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.814+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.814+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.815+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.816+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.816+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.817+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.818+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.818+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.819+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.820+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.820+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.821+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.822+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.822+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.823+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.824+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.824+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.825+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.825+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.826+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR PythonUDFRunner: This may have been caused by a prior exception:
+[2025-04-25T12:09:01.827+0000] {subprocess.py:93} INFO - org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.827+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.828+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.828+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.829+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.830+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.830+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.831+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.832+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.832+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.833+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.833+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.834+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.834+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.835+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.835+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.836+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.837+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.838+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.839+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.840+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.841+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.842+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.843+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.843+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.844+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.845+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.845+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.846+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.847+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.848+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.848+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.849+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.850+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.851+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.851+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.852+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.854+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.855+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.855+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.856+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.856+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.857+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.857+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.858+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.858+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.859+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.859+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR PythonUDFRunner: This may have been caused by a prior exception:
+[2025-04-25T12:09:01.860+0000] {subprocess.py:93} INFO - org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.861+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.861+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.862+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.863+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.863+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.864+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.864+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.865+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.865+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.866+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.866+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.867+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.868+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.869+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.869+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.870+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.870+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.871+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.871+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.872+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.872+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.873+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.873+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.874+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.875+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.875+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.876+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.876+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.877+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.877+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.878+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.878+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.879+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.879+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.880+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.880+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.881+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.882+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.882+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.883+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.884+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.885+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.885+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.886+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.886+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.887+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.887+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR Executor: Exception in task 1.0 in stage 0.0 (TID 1)
+[2025-04-25T12:09:01.888+0000] {subprocess.py:93} INFO - org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.889+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.889+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.890+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.890+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.891+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.891+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.892+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.892+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.893+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.893+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.894+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.894+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.895+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.895+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.895+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.896+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.896+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.897+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.897+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.898+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.898+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.899+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.899+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.900+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.900+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.901+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.901+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.902+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.902+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.903+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.903+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.903+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.904+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.905+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.905+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.905+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.906+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.906+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.907+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.907+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.907+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.908+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.908+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.909+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.909+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.910+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.910+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR Executor: Exception in task 0.0 in stage 0.0 (TID 0)
+[2025-04-25T12:09:01.911+0000] {subprocess.py:93} INFO - org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.911+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.912+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.912+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.913+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.914+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.915+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.916+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.916+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.917+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.918+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.918+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.919+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.920+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.920+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.921+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.921+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.922+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.922+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.923+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.923+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.924+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.924+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.925+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.925+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.926+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.926+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.926+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.927+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.927+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.928+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.928+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.929+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.929+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.930+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.930+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.931+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.931+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.932+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.933+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.933+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.934+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.935+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.935+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.936+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.936+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.937+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.937+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 WARN TaskSetManager: Lost task 1.0 in stage 0.0 (TID 1) (f81ac7673fa0 executor driver): org.apache.spark.api.python.PythonException: Traceback (most recent call last):
+[2025-04-25T12:09:01.938+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.939+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.939+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.940+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.940+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.940+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.941+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.941+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.942+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.942+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.943+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.943+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.944+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.944+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.945+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.945+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.945+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.946+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.946+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.947+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.947+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:559)
+[2025-04-25T12:09:01.948+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:86)
+[2025-04-25T12:09:01.948+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$2.read(PythonUDFRunner.scala:68)
+[2025-04-25T12:09:01.949+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:512)
+[2025-04-25T12:09:01.949+0000] {subprocess.py:93} INFO - 	at org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)
+[2025-04-25T12:09:01.950+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:491)
+[2025-04-25T12:09:01.950+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.951+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.951+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)
+[2025-04-25T12:09:01.951+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)
+[2025-04-25T12:09:01.952+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.WholeStageCodegenExec$$anon$1.hasNext(WholeStageCodegenExec.scala:760)
+[2025-04-25T12:09:01.952+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.953+0000] {subprocess.py:93} INFO - 	at org.apache.spark.ContextAwareIterator.hasNext(ContextAwareIterator.scala:39)
+[2025-04-25T12:09:01.953+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.953+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.954+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.fill(Iterator.scala:1211)
+[2025-04-25T12:09:01.954+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$GroupedIterator.hasNext(Iterator.scala:1217)
+[2025-04-25T12:09:01.955+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator$$anon$10.hasNext(Iterator.scala:460)
+[2025-04-25T12:09:01.956+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach(Iterator.scala:943)
+[2025-04-25T12:09:01.956+0000] {subprocess.py:93} INFO - 	at scala.collection.Iterator.foreach$(Iterator.scala:943)
+[2025-04-25T12:09:01.957+0000] {subprocess.py:93} INFO - 	at scala.collection.AbstractIterator.foreach(Iterator.scala:1431)
+[2025-04-25T12:09:01.958+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.PythonRDD$.writeIteratorToStream(PythonRDD.scala:307)
+[2025-04-25T12:09:01.958+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.writeIteratorToStream(PythonUDFRunner.scala:53)
+[2025-04-25T12:09:01.959+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.$anonfun$run$1(PythonRunner.scala:438)
+[2025-04-25T12:09:01.959+0000] {subprocess.py:93} INFO - 	at org.apache.spark.util.Utils$.logUncaughtExceptions(Utils.scala:2066)
+[2025-04-25T12:09:01.960+0000] {subprocess.py:93} INFO - 	at org.apache.spark.api.python.BasePythonRunner$WriterThread.run(PythonRunner.scala:272)
+[2025-04-25T12:09:01.961+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.962+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR TaskSetManager: Task 1 in stage 0.0 failed 1 times; aborting job
+[2025-04-25T12:09:01.962+0000] {subprocess.py:93} INFO - 25/04/25 12:09:01 ERROR MicroBatchExecution: Query traffic_processing_pipeline [id = 40c16c78-8ded-4bdc-b67b-54870a3f0820, runId = 45b6ae20-71db-4375-aa1f-5df0ddacbdee] terminated with error
+[2025-04-25T12:09:01.963+0000] {subprocess.py:93} INFO - py4j.Py4JException: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
+[2025-04-25T12:09:01.963+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/clientserver.py", line 617, in _call_proxy
+[2025-04-25T12:09:01.964+0000] {subprocess.py:93} INFO -     return_value = getattr(self.pool[obj_id], method)(*params)
+[2025-04-25T12:09:01.964+0000] {subprocess.py:93} INFO -                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.965+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 276, in call
+[2025-04-25T12:09:01.965+0000] {subprocess.py:93} INFO -     raise e
+[2025-04-25T12:09:01.965+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 273, in call
+[2025-04-25T12:09:01.966+0000] {subprocess.py:93} INFO -     self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
+[2025-04-25T12:09:01.966+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 292, in <lambda>
+[2025-04-25T12:09:01.967+0000] {subprocess.py:93} INFO -     write_to_redis(df, epoch_id),
+[2025-04-25T12:09:01.967+0000] {subprocess.py:93} INFO -     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.967+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 64, in write_to_redis
+[2025-04-25T12:09:01.968+0000] {subprocess.py:93} INFO -     if df.isEmpty(): return
+[2025-04-25T12:09:01.968+0000] {subprocess.py:93} INFO -        ^^^^^^^^^^^^
+[2025-04-25T12:09:01.969+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 553, in isEmpty
+[2025-04-25T12:09:01.969+0000] {subprocess.py:93} INFO -     return self._jdf.isEmpty()
+[2025-04-25T12:09:01.969+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.970+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/java_gateway.py", line 1321, in __call__
+[2025-04-25T12:09:01.970+0000] {subprocess.py:93} INFO -     return_value = get_return_value(
+[2025-04-25T12:09:01.970+0000] {subprocess.py:93} INFO -                    ^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.971+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 196, in deco
+[2025-04-25T12:09:01.971+0000] {subprocess.py:93} INFO -     raise converted from None
+[2025-04-25T12:09:01.972+0000] {subprocess.py:93} INFO - pyspark.sql.utils.PythonException:
+[2025-04-25T12:09:01.972+0000] {subprocess.py:93} INFO -   An exception was thrown from the Python worker. Please see the stack trace below.
+[2025-04-25T12:09:01.973+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T12:09:01.973+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:01.973+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:01.974+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.974+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:01.975+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:01.975+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.976+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:01.976+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:01.977+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.978+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:01.979+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:01.980+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.980+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:01.981+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:01.981+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.982+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:01.982+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:01.982+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:01.983+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:01.983+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.984+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:01.984+0000] {subprocess.py:93} INFO - 	at py4j.Protocol.getReturnValue(Protocol.java:476)
+[2025-04-25T12:09:01.984+0000] {subprocess.py:93} INFO - 	at py4j.reflection.PythonProxyHandler.invoke(PythonProxyHandler.java:108)
+[2025-04-25T12:09:01.985+0000] {subprocess.py:93} INFO - 	at jdk.proxy3/jdk.proxy3.$Proxy37.call(Unknown Source)
+[2025-04-25T12:09:01.985+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1(ForeachBatchSink.scala:51)
+[2025-04-25T12:09:01.986+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1$adapted(ForeachBatchSink.scala:51)
+[2025-04-25T12:09:01.986+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.addBatch(ForeachBatchSink.scala:32)
+[2025-04-25T12:09:01.986+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:665)
+[2025-04-25T12:09:01.987+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:109)
+[2025-04-25T12:09:01.987+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:169)
+[2025-04-25T12:09:01.988+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:95)
+[2025-04-25T12:09:01.988+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:779)
+[2025-04-25T12:09:01.989+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:64)
+[2025-04-25T12:09:01.989+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$16(MicroBatchExecution.scala:663)
+[2025-04-25T12:09:01.989+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:375)
+[2025-04-25T12:09:01.990+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:373)
+[2025-04-25T12:09:01.990+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:68)
+[2025-04-25T12:09:01.991+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runBatch(MicroBatchExecution.scala:663)
+[2025-04-25T12:09:01.991+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$2(MicroBatchExecution.scala:256)
+[2025-04-25T12:09:01.992+0000] {subprocess.py:93} INFO - 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+[2025-04-25T12:09:01.992+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:375)
+[2025-04-25T12:09:01.993+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:373)
+[2025-04-25T12:09:01.993+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:68)
+[2025-04-25T12:09:01.993+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:219)
+[2025-04-25T12:09:01.994+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.ProcessingTimeExecutor.execute(TriggerExecutor.scala:67)
+[2025-04-25T12:09:01.994+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:213)
+[2025-04-25T12:09:01.995+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:307)
+[2025-04-25T12:09:01.995+0000] {subprocess.py:93} INFO - 	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)
+[2025-04-25T12:09:01.996+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:779)
+[2025-04-25T12:09:01.997+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runStream(StreamExecution.scala:285)
+[2025-04-25T12:09:01.998+0000] {subprocess.py:93} INFO - 	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.run(StreamExecution.scala:208)
+[2025-04-25T12:09:01.999+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T12:09:01.999+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 306, in <module>
+[2025-04-25T12:09:02.000+0000] {subprocess.py:93} INFO -     main()
+[2025-04-25T12:09:02.000+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 299, in main
+[2025-04-25T12:09:02.001+0000] {subprocess.py:93} INFO -     streaming_query.awaitTermination()
+[2025-04-25T12:09:02.002+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/streaming.py", line 107, in awaitTermination
+[2025-04-25T12:09:02.002+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/java_gateway.py", line 1321, in __call__
+[2025-04-25T12:09:02.003+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 196, in deco
+[2025-04-25T12:09:02.003+0000] {subprocess.py:93} INFO - pyspark.sql.utils.StreamingQueryException: Query traffic_processing_pipeline [id = 40c16c78-8ded-4bdc-b67b-54870a3f0820, runId = 45b6ae20-71db-4375-aa1f-5df0ddacbdee] terminated with exception: An exception was raised by the Python Proxy. Return Message: Traceback (most recent call last):
+[2025-04-25T12:09:02.004+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/clientserver.py", line 617, in _call_proxy
+[2025-04-25T12:09:02.004+0000] {subprocess.py:93} INFO -     return_value = getattr(self.pool[obj_id], method)(*params)
+[2025-04-25T12:09:02.005+0000] {subprocess.py:93} INFO -                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.005+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 276, in call
+[2025-04-25T12:09:02.006+0000] {subprocess.py:93} INFO -     raise e
+[2025-04-25T12:09:02.006+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 273, in call
+[2025-04-25T12:09:02.007+0000] {subprocess.py:93} INFO -     self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
+[2025-04-25T12:09:02.007+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 292, in <lambda>
+[2025-04-25T12:09:02.008+0000] {subprocess.py:93} INFO -     write_to_redis(df, epoch_id),
+[2025-04-25T12:09:02.008+0000] {subprocess.py:93} INFO -     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.009+0000] {subprocess.py:93} INFO -   File "/opt/spark/app/processor.py", line 64, in write_to_redis
+[2025-04-25T12:09:02.009+0000] {subprocess.py:93} INFO -     if df.isEmpty(): return
+[2025-04-25T12:09:02.010+0000] {subprocess.py:93} INFO -        ^^^^^^^^^^^^
+[2025-04-25T12:09:02.010+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 553, in isEmpty
+[2025-04-25T12:09:02.011+0000] {subprocess.py:93} INFO -     return self._jdf.isEmpty()
+[2025-04-25T12:09:02.011+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.012+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/py4j-0.10.9.5-src.zip/py4j/java_gateway.py", line 1321, in __call__
+[2025-04-25T12:09:02.012+0000] {subprocess.py:93} INFO -     return_value = get_return_value(
+[2025-04-25T12:09:02.013+0000] {subprocess.py:93} INFO -                    ^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.013+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/sql/utils.py", line 196, in deco
+[2025-04-25T12:09:02.014+0000] {subprocess.py:93} INFO -     raise converted from None
+[2025-04-25T12:09:02.014+0000] {subprocess.py:93} INFO - pyspark.sql.utils.PythonException:
+[2025-04-25T12:09:02.015+0000] {subprocess.py:93} INFO -   An exception was thrown from the Python worker. Please see the stack trace below.
+[2025-04-25T12:09:02.015+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2025-04-25T12:09:02.016+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 670, in main
+[2025-04-25T12:09:02.016+0000] {subprocess.py:93} INFO -     func, profiler, deserializer, serializer = read_udfs(pickleSer, infile, eval_type)
+[2025-04-25T12:09:02.017+0000] {subprocess.py:93} INFO -                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.017+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 507, in read_udfs
+[2025-04-25T12:09:02.017+0000] {subprocess.py:93} INFO -     udfs.append(read_single_udf(pickleSer, infile, eval_type, runner_conf, udf_index=i))
+[2025-04-25T12:09:02.018+0000] {subprocess.py:93} INFO -                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.018+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 289, in read_single_udf
+[2025-04-25T12:09:02.019+0000] {subprocess.py:93} INFO -     f, return_type = read_command(pickleSer, infile)
+[2025-04-25T12:09:02.019+0000] {subprocess.py:93} INFO -                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.019+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/worker.py", line 85, in read_command
+[2025-04-25T12:09:02.020+0000] {subprocess.py:93} INFO -     command = serializer._read_with_length(file)
+[2025-04-25T12:09:02.020+0000] {subprocess.py:93} INFO -               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.020+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 173, in _read_with_length
+[2025-04-25T12:09:02.021+0000] {subprocess.py:93} INFO -     return self.loads(obj)
+[2025-04-25T12:09:02.021+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.022+0000] {subprocess.py:93} INFO -   File "/opt/spark/python/lib/pyspark.zip/pyspark/serializers.py", line 471, in loads
+[2025-04-25T12:09:02.022+0000] {subprocess.py:93} INFO -     return cloudpickle.loads(obj, encoding=encoding)
+[2025-04-25T12:09:02.023+0000] {subprocess.py:93} INFO -            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-04-25T12:09:02.023+0000] {subprocess.py:93} INFO - TypeError: code() argument 13 must be str, not int
+[2025-04-25T12:09:02.023+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:02.024+0000] {subprocess.py:93} INFO - 
+[2025-04-25T12:09:02.230+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2025-04-25T12:09:02.247+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2025-04-25T12:09:02.252+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=traffic_data_pipeline, task_id=submit_traffic_processor_spark_job, execution_date=20250425T120840, start_date=20250425T120841, end_date=20250425T120902
+[2025-04-25T12:09:02.281+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 2 for task submit_traffic_processor_spark_job (Bash command failed. The command returned a non-zero exit code 1.; 263)
+[2025-04-25T12:09:02.314+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-04-25T12:09:02.348+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check
